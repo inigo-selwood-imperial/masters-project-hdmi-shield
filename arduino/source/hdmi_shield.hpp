@@ -72,6 +72,9 @@ error
 */
 Error initialize();
 
+// Soft-resets the entire board
+Error reset();
+
 /* Checks whether a display is connected to the board
 
 Arguments
@@ -159,20 +162,6 @@ Error createTextSurface(Surface &surface,
         const char *text, 
         const Colour colour = Colour{0, 0, 0});
 
-/* Frees the memory held by a surface
-
-Arguments
----------
-surface
-    the surface to free
-
-Returns
--------
-error
-    if an error occured
-*/
-Error freeSurface(Surface &surface);
-
 /* Blits one surface onto another
 
 The blitting process superimposes one surface onto another using bitwise 
@@ -200,6 +189,20 @@ Error blitSurface(const Surface &source,
         const Surface &target,
         const Box *sourceRegion,
         const Point *targetDestination);
+
+/* Frees the memory held by a surface
+
+Arguments
+---------
+surface
+    the surface to free
+
+Returns
+-------
+error
+    if an error occured
+*/
+Error freeSurface(Surface &surface);
 
 /* Draws a point on a surface
 
@@ -294,8 +297,5 @@ Error clear();
 
 // Swaps the frame and active buffers
 Error update();
-
-// Soft-resets the entire board
-Error reset();
 
 }; // namesapce HDMIShield

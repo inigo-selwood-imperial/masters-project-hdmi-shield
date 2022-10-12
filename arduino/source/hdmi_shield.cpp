@@ -206,6 +206,11 @@ Error initialize() {
     }
 }
 
+// Soft-resets the board
+Error reset() {
+    return transmit("%c", Code::RESET);
+}
+
 // Checks whether a display is connected to the board
 Error displayConnected(bool &connected) {
 
@@ -301,17 +306,6 @@ Error createTextSurface(Surface &surface,
     return Error::NONE;
 }
 
-// Frees the memory held by a surface
-Error freeSurface(Surface &surface) {
-    Error transmitError = transmit("%c%u", Code::FREE_SURFACE, surface.ID);
-    if(transmitError) {
-        return transmitError;
-    }
-
-    surface.ID = 0;
-    return Error::NONE;
-}
-
 // Blits one surface onto another 
 Error blitSurface(const Surface &source, 
         const Surface &target, 
@@ -345,6 +339,17 @@ Error blitSurface(const Surface &source,
             region.area.height,
             destination.x,
             destination.y);
+}
+
+// Frees the memory held by a surface
+Error freeSurface(Surface &surface) {
+    Error transmitError = transmit("%c%u", Code::FREE_SURFACE, surface.ID);
+    if(transmitError) {
+        return transmitError;
+    }
+
+    surface.ID = 0;
+    return Error::NONE;
 }
 
 // Draws a point on a surface
@@ -441,11 +446,6 @@ Error clear() {
 // Swaps the frame and active buffers
 Error update() {
     return transmit("%c", Code::UPDATE);
-}
-
-// Soft-resets the board
-Error reset() {
-    return transmit("%c", Code::RESET);
 }
 
 }; // namespace HDMIShield
