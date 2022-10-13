@@ -50,7 +50,7 @@ The last byte of packets both sent and recieved is a checksum. It's the Arduino'
 
 ![Timing Diagram](assets/timing-diagram.png)
 
-Command             | OpCode |
+Command             | OpCode | Description
 --------------------|--------|---
 Reset               | `0x01` | Soft-resets the shield
 Retransmit          | `0x02` | Asks that the last packet transmitted be sent again
